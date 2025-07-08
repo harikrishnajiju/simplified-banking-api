@@ -1,0 +1,6 @@
+EBBS Report Summary
+Transaction Count: 1,250
+Total Amount: $125,750.50
+Failed Transactions: 5
+Success Rate: 99.6%
+Report Generated: 2025-07-08T10:00:00

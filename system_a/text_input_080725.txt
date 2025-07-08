@@ -1,0 +1,5 @@
+Line 1: Important banking data
+Line 2: Customer ID 12345
+Line 3: Balance: $50,000
+Line 4: Account Type: Premium
+Line 5: Last Activity: 2025-07-08
