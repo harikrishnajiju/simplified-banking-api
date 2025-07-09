@@ -1,68 +1,46 @@
-# Simplified Banking File Transfer API
+# Simple Banking File Transfer API
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![Flask 3.0.0](https://img.shields.io/badge/flask-3.0.0-green.svg)](https://flask.palletsprojects.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen.svg)]()
+> **Simplified Banking File Transfer System**  
+> Eliminates manual file transfers between banking systems with intelligent, contract-driven API processing
 
-A lightweight, enterprise-grade banking file transfer API that eliminates complex file-based data exchanges between banking systems. Built for simplicity, reliability, and performance without external dependencies like Kafka or Redis.
+## 🎯 **Overview**
 
-## 📖 Description
+This API replaces traditional file-based data transfers between banking systems with automated, secure, and auditable API operations. Instead of manual file copying, teams use predefined contracts to automatically discover, process, and transfer files between systems.
 
-The Simplified Banking File Transfer API transforms traditional file-based data exchanges in banking environments into streamlined, real-time API operations. Instead of the conventional process of exporting files, uploading to shared drives, and downloading for import, this system provides direct System A → System B file processing with predefined contracts and intelligent data transformation.
+### **Key Benefits**
+- ⚡ **Speed**: 3+ hours → 2 seconds (99.9% faster) 
+(Assuming two teams have to coordinate and share files)
+- 🔒 **Security**: Automatic data masking and validation
+- 📋 **Compliance**: Complete audit trails and processing logs
+- 🎯 **Accuracy**: Eliminates manual errors and validation issues
+- 💰 **Cost**: reduction in infrastructure costs
 
-### Problem Solved
-- **Before**: Export CSV → Upload to NAS → Download → Import (long process, manual intervention, hard to get approval, data duplication)
-- **After**: Single API call → Immediate processing → Data available (2 seconds, fully automated)
+---
 
-### Key Benefits
-- **99.9% faster data transfers** (2 seconds (depends on file size/network speeds))
-- **60% cost reduction** (eliminates file storage infrastructure)
-- **Enhanced security** (no shared file vulnerabilities)
-- **Multi-format support** (CSV, TXT, PDF, Excel)
-- **Zero maintenance** (no external dependencies)
+## 🏗️ **Architecture**
 
-## ✨ Features
+```
+System A (Source) → API Processing → System B (Target)
+     ↓                    ↓              ↓
+  Raw input files    Business logic   Processed files
+  Date-based naming   Security rules   Audit trails
+```
 
-### Core Capabilities
-- **📁 Multi-Format Processing**: Native support for CSV, TXT, PDF, and Excel files
-- **📅 Date-Pattern Recognition**: Automatic file detection using `DDMMYY` format
-- **🔄 System Integration**: Seamless System A → System B file transfers
-- **📋 API Contracts**: Predefined processing rules and file patterns
-- **⚡ Real-Time Processing**: Immediate file processing and data availability
-- **🔍 Data Transformation**: Intelligent data masking, validation, and enrichment
+### **Components**
+- **System A**: Source banking system (simulated as `./system_a/`)
+- **System B**: Target banking system (simulated as `./system_b/`)
+- **API Processing**: Flask application with business rules
+- **Contracts**: Predefined file patterns and processing rules
 
-### Banking-Specific Features
-- **💳 Card Number Masking**: Automatic PCI compliance for card data
-- **📊 Transaction Validation**: Amount and data integrity checks
-- **📈 Report Processing**: EBBS and banking report automation
-- **🏦 Legacy Integration**: Modern API wrapper for traditional banking files
-- **📝 Audit Trails**: Complete processing history and file lineage
+---
 
-### Enterprise Features
-- **🔒 Security**: No external dependencies, secure file handling
-- **📈 Scalability**: Lightweight design, easy horizontal scaling
-- **🛠️ Maintainability**: Single-file architecture, clear contracts
-- **🔧 Configurability**: Easy endpoint addition via contract updates
-- **📊 Monitoring**: Built-in system status and file tracking
+## 🚀 **Quick Start**
 
-## 🛠️ Installation
-
-### Prerequisites
-- Python 3.8 or higher
-- pip (Python package installer)
-- Virtual environment (recommended)
-
-### Quick Install
-
+### **1. Installation**
 ```bash
-# Clone the repository
-git clone https://github.com/your-org/simplified-banking-api.git
+# Clone and setup
+git clone <repository>
 cd simplified-banking-api
-
-# Create and activate virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
 pip install -r requirements.txt
@@ -71,114 +49,64 @@ pip install -r requirements.txt
 python app.py
 ```
 
-### Docker Installation
-
+### **2. Create Demo Files**
 ```bash
-# Build Docker image
-docker build -t simplified-banking-api .
-
-# Run container
-docker run -p 5000:5000 -v $(pwd)/system_a:/app/system_a -v $(pwd)/system_b:/app/system_b simplified-banking-api
+curl -X POST http://localhost:5000/api/v1/demo/setup
 ```
 
-## 📦 Software Dependencies
-
-### Core Dependencies
-| Package | Version | Purpose |
-|---------|---------|---------|
-| `flask` | 3.0.0 | Web framework and API server |
-| `flask-cors` | 4.0.0 | Cross-origin resource sharing |
-| `pandas` | 2.1.4 | Data processing and CSV handling |
-| `PyPDF2` | 3.0.1 | PDF text extraction |
-| `openpyxl` | 3.1.2 | Excel file processing |
-
-### System Requirements
-- **Memory**: 512MB minimum, 2GB recommended
-- **Storage**: 100MB for application, additional space for file processing
-- **Network**: HTTP/HTTPS support
-- **OS**: Linux, macOS, Windows (cross-platform)
-
-### Optional Dependencies
+### **3. Test File Processing**
 ```bash
-# For enhanced PDF processing
-pip install pdfplumber
-
-# For advanced Excel features
-pip install xlsxwriter
-
-# For development and testing
-pip install pytest flask-testing
-```
-
-## 🚀 Latest Releases
-
-### Version 2.0.0 (Current) - July 2025
-- ✨ **NEW**: Complete architecture redesign without Kafka/Redis
-- ✨ **NEW**: Multi-format support (CSV, TXT, PDF, Excel)
-- ✨ **NEW**: Predefined API contracts system
-- ✨ **NEW**: Date-based file pattern recognition
-- 🐛 **FIXED**: Performance issues
-- 🔧 **IMPROVED**: Simplified deployment and maintenance
-
-### Version 1.0.0 - June 2025
-- Initial release with Kafka/Redis architecture
-- Basic CSV processing capabilities
-- Streaming upload for large files
-
-### Roadmap
-- **v2.1.0** (Q3 2025): Enhanced security features, API authentication
-- **v2.2.0** (Q4 2025): Advanced file validation, custom processing rules
-- **v3.0.0** (Q1 2026): Multi-tenant support, enterprise dashboard
-
-## 📚 API Reference
-
-### Base URL
-```
-Local Development: http://localhost:5000
-Production: https://your-domain.com
-```
-
-### Authentication
-Currently no authentication required. Enterprise authentication coming in v2.1.0.
-
-### Core Endpoints
-
-#### System Information
-```http
-GET /
-GET /health
-GET /api/v1/contracts
-GET /api/v1/system/status
-```
-
-#### File Processing
-```http
-POST /api/v1/upload/{endpoint}
-GET  /api/v1/download/{endpoint}
-GET  /api/v1/download/{endpoint}/file
-```
-
-#### Demo & Setup
-```http
-POST /api/v1/demo/setup
-```
-
-### Available Endpoints
-
-| Endpoint | File Type | Input Pattern | Output Pattern | Description |
-|----------|-----------|---------------|----------------|-------------|
-| `debitcardtxn` | CSV | `debitcard_input_{date}.csv` | `debitcard_processed_{date}.csv` | Debit card transaction processing with PCI masking |
-| `ebbsreport` | TXT | `ebbs_report_{date}.txt` | `ebbs_processed_{date}.txt` | EBBS system report processing and structuring |
-| `csvtest` | CSV | `csv_input_{date}.csv` | `csv_output_{date}.csv` | Generic CSV processing and validation |
-| `txttest` | TXT | `text_input_{date}.txt` | `text_processed_{date}.json` | Text file parsing and JSON conversion |
-| `pdftest` | PDF | `test_document_{date}.pdf` | `pdf_extracted_{date}.txt` | PDF text extraction and analysis |
-| `exceltest` | Excel | `excel_input_{date}.xlsx` | `excel_output_{date}.csv` | Excel to CSV conversion |
-
-### Request/Response Examples
-
-#### Process Debit Card Transactions
-```bash
+# Process debit card transactions
 curl -X POST http://localhost:5000/api/v1/upload/debitcardtxn
+
+# Download processed data
+curl http://localhost:5000/api/v1/download/debitcardtxn
+
+# Download raw file
+curl http://localhost:5000/api/v1/download/debitcardtxn/raw/file
+```
+
+---
+
+## 📋 **API Contracts**
+
+The system uses predefined contracts that define how files are discovered, processed, and stored.
+
+### **Available Endpoints**
+| Endpoint | File Pattern | Description | Format |
+|----------|--------------|-------------|---------|
+| `debitcardtxn` | `debitcard_input_{date}.csv` | Debit card transaction processing | CSV |
+| `ebbsreport` | `ebbs_report_{date}.txt` | EBBS system report processing | TXT |
+| `csvtest` | `csv_input_{date}.csv` | Generic CSV processing | CSV |
+| `txttest` | `text_input_{date}.txt` | Text file processing to JSON | TXT |
+| `pdftest` | `test_document_{date}.pdf` | PDF text extraction | PDF |
+| `exceltest` | `excel_input_{date}.xlsx` | Excel to CSV conversion | Excel |
+
+### **Date Pattern**
+All files follow the pattern: `filename_DDMMYY.ext`  
+Example: `debitcard_input_080725.csv` for July 8, 2025
+
+---
+
+## 🛠️ **API Reference**
+
+### **Core Operations**
+
+#### **Health & System Status**
+```bash
+GET /health                    # System health check
+GET /api/v1/system/status     # File system status
+GET /api/v1/contracts         # View all contracts
+```
+
+#### **File Processing**
+```bash
+POST /api/v1/upload/{endpoint}    # Process file from System A → System B
+```
+
+**Example:**
+```bash
+POST /api/v1/upload/debitcardtxn
 ```
 
 **Response:**
@@ -186,260 +114,226 @@ curl -X POST http://localhost:5000/api/v1/upload/debitcardtxn
 {
   "status": "success",
   "endpoint": "debitcardtxn",
-  "description": "Debit card transaction processing",
   "source_file": "debitcard_input_080725.csv",
   "target_file": "debitcard_processed_080725.csv",
-  "records_processed": 150,
-  "format": "csv",
-  "processed_at": "2025-07-08T10:30:00.123Z",
-  "file_size_kb": 15.7,
+  "records_processed": 3,
+  "file_size_kb": 1.2,
   "sample_data": [
     {
-      "card_number": "1234****5678",
+      "card_number": "1234****3456",
       "amount": 150.50,
       "merchant": "Amazon",
-      "processed_at": "2025-07-08T10:30:00.123Z"
+      "processed_at": "2025-07-08T10:30:00"
     }
   ]
 }
 ```
 
-#### Download Processed Data
+#### **File Downloads**
+
+##### **Processed Files (System B - post-processing)**
 ```bash
-curl http://localhost:5000/api/v1/download/debitcardtxn
+GET /api/v1/download/{endpoint}       # JSON API response
+GET /api/v1/download/{endpoint}/file  # Direct file download
 ```
 
-**Response:**
-```json
-{
-  "status": "success",
-  "endpoint": "debitcardtxn",
-  "file_name": "debitcard_processed_080725.csv",
-  "file_path": "./system_b/debitcard_processed_080725.csv",
-  "file_size_kb": 15.7,
-  "content": {
-    "format": "csv",
-    "records": [...],
-    "shape": [150, 5],
-    "columns": ["card_number", "amount", "merchant", "timestamp", "processed_at"]
-  },
-  "download_url": "/api/v1/download/debitcardtxn/file"
-}
-```
-
-### Error Responses
-
-```json
-{
-  "error": "File not found: debitcard_input_080725.csv for date 080725",
-  "expected_pattern": "debitcard_input_{date}.csv"
-}
-```
-
-## 🚀 Getting Started
-
-### 1. Quick Start Demo
-
+##### **Raw Files (System A)**
 ```bash
-# Start the application
-python app.py
-
-# Create demo files
-curl -X POST http://localhost:5000/api/v1/demo/setup
-
-# Process a file
-curl -X POST http://localhost:5000/api/v1/upload/debitcardtxn
-
-# Download results
-curl http://localhost:5000/api/v1/download/debitcardtxn
+GET /api/v1/download/{endpoint}/raw/file  # Direct raw file download
 ```
 
-### 2. File Structure Setup
-
-Create the following directory structure:
-```
-your-project/
-├── app.py
-├── requirements.txt
-├── system_a/          # Source files (input)
-│   ├── debitcard_input_080725.csv
-│   ├── ebbs_report_080725.txt
-│   └── csv_input_080725.csv
-└── system_b/          # Processed files (output)
-    ├── debitcard_processed_080725.csv
-    ├── ebbs_processed_080725.txt
-    └── csv_output_080725.csv
+### **Demo & Testing**
+```bash
+POST /api/v1/demo/setup          # Create sample files
+GET /api/v1/system/status        # Check file availability
 ```
 
-### 3. Add Your Own Files
+---
 
-Place files in `system_a/` following the naming pattern:
+## 🔄 **Processing Rules**
+
+### **CSV Processing** (debitcardtxn, csvtest)
+- **Card Masking**: `1234567890123456` → `1234****3456`
+- **Amount Validation**: Remove invalid amounts
+- **Timestamp Addition**: Add processing timestamp
+- **Metadata**: Add source file and processing date
+
+### **TXT Processing** (ebbsreport, txttest)
+- **JSON Conversion**: Convert text to structured JSON
+- **Line Analysis**: Parse individual lines
+- **Summary Statistics**: Word count, line count, character count
+
+### **PDF Processing** (pdftest) (Half working - WIP, text extraction from PDF is fine)
+- **Text Extraction**: Extract all text from PDF
+- **Page Analysis**: Count pages and content
+- **Summary Creation**: Generate content statistics
+
+### **Excel Processing** (exceltest)
+- **Multi-sheet Support**: Process all sheets
+- **CSV Conversion**: Convert to unified CSV format
+- **Sheet Identification**: Add source sheet column
+
+---
+
+## 📊 **Demo Workflow**
+
+### **Complete Banking Scenario**
+
+#### **1. Setup Demo Environment**
+```bash
+POST /api/v1/demo/setup
 ```
-{endpoint_name}_input_{DDMMYY}.{extension}
+
+#### **2. Check System Status**
+```bash
+GET /api/v1/system/status
 ```
 
-For example, for today (July 8, 2025):
-- `debitcard_input_080725.csv`
-- `ebbs_report_080725.txt`
-- `test_document_080725.pdf`
+#### **3. Download Raw Data (Before Processing)**
+```bash
+GET /api/v1/download/debitcardtxn/raw/file
+```
+*Downloads: Full card numbers, no processing timestamp*
 
-### 4. Custom Endpoint Creation
+#### **4. Process Data (System A → System B)**
+```bash
+POST /api/v1/upload/debitcardtxn
+```
+*Result: Processes raw data and stores in System B*
 
-Add new endpoints by updating the `API_CONTRACTS` dictionary:
+#### **5. Download Processed Data (After Processing)**
+```bash
+GET /api/v1/download/debitcardtxn/file
+```
+*Downloads: Masked card numbers, processing timestamp*
 
+#### **6. Compare Results**
+View the transformation:
+- **Raw**: `1234567890123456,150.50,Amazon`
+- **Processed**: `1234****3456,150.50,Amazon,2025-07-08T10:30:00`
+
+---
+
+## 🔧 **Configuration**
+
+### **File Paths**
 ```python
-"your_endpoint": {
-    "file_pattern": "your_input_{date}.csv",
-    "target_pattern": "your_output_{date}.csv",
+BASE_CONFIG = {
+    "system_a_path": "./system_a",  # Source system
+    "system_b_path": "./system_b",  # Target system
+    "date_format": "%d%m%y"         # DDMMYY format
+}
+```
+
+### **Adding New Endpoints**
+Add to `API_CONTRACTS` in `app.py`:
+```python
+"new_endpoint": {
+    "file_pattern": "new_file_{date}.csv",
+    "target_pattern": "new_processed_{date}.csv",
     "format": "csv",
-    "description": "Your custom processing",
+    "description": "New file processing",
     "processing_rules": {
         "validate_data": True,
-        "add_metadata": True
+        "add_timestamp": True
     }
 }
 ```
 
-## 🔧 Build and Test
+---
 
-### Development Setup
+## 🏦 **Business Impact**
 
-```bash
-# Clone and setup
-git clone https://github.com/your-org/simplified-banking-api.git
-cd simplified-banking-api
+### **Before vs After**
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Transfer Time | 3+ hours | 2 seconds | 99.9% faster |
+| Manual Errors | common | negligent |Almost nil errors |
+| Security Issues | Common | Eliminated | Easily configurable with latest regulations |
+| Infrastructure Cost | time+infraCosts+manual efforts | one-time central setup | Standardisation all over teams and bank in the long run |
 
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install development dependencies
-pip install pytest flask-testing pytest-cov
-
-# Run in development mode
-export FLASK_ENV=development
-python app.py
-```
-
-### Running Tests
-
-```bash
-# Run all tests
-pytest
-
-# Run with coverage
-pytest --cov=app --cov-report=html
-
-# Run specific test file
-pytest tests/test_api.py
-
-# Run with verbose output
-pytest -v
-```
-
-### Test Coverage
-
-```bash
-# Generate coverage report
-pytest --cov=app --cov-report=term-missing
-
-# View HTML coverage report
-open htmlcov/index.html
-```
-
-### Performance Testing
-
-```bash
-# Install performance testing tools
-pip install locust
-
-# Run load tests
-locust -f tests/load_test.py --host=http://localhost:5000
-```
-
-### Building Docker Image
-
-```bash
-# Build image
-docker build -t simplified-banking-api:latest .
-
-# Run container
-docker run -p 5000:5000 simplified-banking-api:latest
-
-# Build for production
-docker build -t simplified-banking-api:v2.0.0 .
-```
-
-### Integration Testing
-
-```bash
-# Test all endpoints
-python tests/integration_test.py
-
-# Test file processing
-python tests/test_file_processing.py
-
-# Test error handling
-python tests/test_error_scenarios.py
-```
-
-### Code Quality
-
-```bash
-# Install quality tools
-pip install black flake8 mypy
-
-# Format code
-black app.py
-
-# Check code style
-flake8 app.py
-
-# Type checking
-mypy app.py
-```
-
-### Continuous Integration
-
-The project includes GitHub Actions workflows for:
-- ✅ Automated testing on Python 3.8, 3.9, 3.10, 3.11
-- ✅ Code quality checks (flake8, black)
-- ✅ Security scanning
-- ✅ Docker image building
-- ✅ Performance regression testing
-
-### Deployment Testing
-
-```bash
-# Test production build
-pip install gunicorn
-gunicorn --bind 0.0.0.0:5000 app:app
-
-# Test with different Python versions
-pyenv install 3.8.10 3.9.7 3.10.4 3.11.2
-tox
-```
-
-## 📞 Support & Contributing
-
-### Getting Help
-- 📖 [Documentation](docs/)
-- 🐛 [Issue Tracker](https://github.com/your-org/simplified-banking-api/issues)
-- 💬 [Discussions](https://github.com/your-org/simplified-banking-api/discussions)
-
-### Contributing
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+### **Use Cases**
+- **Risk Management**: Real-time transaction processing
+- **Compliance**: Automated regulatory reporting
+- **Analytics**: Instant data access for insights
+- **Operations**: Streamlined daily processes
 
 ---
 
-**Built for the banking industry** | **Eliminating file transfers, enabling real-time data exchange**
+## 🔒 **Security Features**
+
+- **Data Masking**: Automatic PII (Personal Identitfiable Info) protection
+- **Validation**: Business rule enforcement
+- **Audit Trails**: Complete operation logging
+- **Access Control**: Team-based permissions
+- **Input Sanitization**: Comprehensive data validation
+
+---
+
+## 🚀 **Future Enhancements**
+
+### **Phase 2: Enterprise Features**
+- OAuth 2.0 authentication
+- Advanced monitoring and alerting
+- Performance optimization
+- Multi-region deployment
+
+### **Phase 3: Advanced Capabilities**
+- Real-time streaming
+- AI/ML data processing
+- External partner integration
+- Advanced analytics
+
+---
+
+## 📁 **Project Structure**
+
+```
+simplified-banking-api/
+├── app.py                 # Main application
+├── requirements.txt       # Python dependencies
+├── README.md             # This file
+├── system_a/             # Source files (System A)
+│   ├── debitcard_input_*.csv
+│   ├── ebbs_report_*.txt
+│   └── ...
+├── system_b/             # Processed files (System B)
+│   ├── debitcard_processed_*.csv
+│   ├── ebbs_processed_*.txt
+│   └── ...
+└── logs/                 # Application logs
+```
+
+---
+
+## 🤝 **Contributing**
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+---
+
+## 📄 **License**
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+
+## 💬 **Support**
+
+For support, Reach out to **Jiju, Harikrishna** or **Rajagopalan, Srini** or create an issue in the repository.
+
+---
+
+## **Acknowledgments**
+
+- Built for banking hackathon demonstration
+- Inspired by modern API-first banking architecture
+- Designed for enterprise-scale deployment
+
+---
+
+**Transform your banking file transfers today! by adopting Switching&Cards Teams Solution** PII
